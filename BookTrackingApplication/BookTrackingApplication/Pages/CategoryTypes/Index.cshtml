@@ -1,0 +1,40 @@
+﻿@page
+@model BookTrackingApplication.Pages.CategoryTypes.IndexModel
+@{ 
+    ViewData["Title"] = "CategoryType page";
+
+}   
+<div class="text-center">
+<a asp-page="/CategoryTypes/Create">Add CategoryType</a>
+       <table class=" table table-bordered table-stripped">
+              <thead>
+                                <tr>
+                                    <th>Name Token</th>
+                                    <th>Description</th>
+                                    <th>Category Name</th>
+                                    <th></th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.CategoryTypies.Count; i++)
+                                {
+                                    var item = Model.CategoryTypies[i];
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NameToken)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.Category.Name)
+                                        </td>
+                                        <td>
+                                            <a asp-page="./Edit" asp-route-id="@item.NameToken">Edit</a> |
+                                            <a asp-page="./Delete" asp-route-id="@item.NameToken">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+            </table>
+</div>

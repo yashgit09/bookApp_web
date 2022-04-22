@@ -1,0 +1,54 @@
+﻿@page "/"
+@model BookTrackingApplication.Pages.Books.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@section JSONLD{
+    [
+    @foreach(var entry in Model.JSONLD){
+        @Html.Raw(entry.ToHtmlEscapedString() + ',');
+    }
+    ]
+}
+<div class="text-center">
+  
+       <table class=" table table-bordered table-stripped">
+              <thead>
+                                <tr>
+                                    <th>ISBN</th>
+                                    <th>Author</th>
+                                    <th>Title</th>
+                                   
+                                    <th>Category Name</th>
+                                    <th></th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Books.Count; i++)
+                                {
+                                    var item = Model.Books[i];
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISBN)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Author)
+                                        </td>
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        
+                                        
+                                        <td>
+                                           @Html.DisplayFor(modelItem => item.CategoryType.Category.Name)
+                                        </td>
+                                         <td>
+                                            <a asp-page="./Edit" asp-route-id="@item.ISBN">Edit</a> |
+                                            <a asp-page="./Delete" asp-route-id="@item.ISBN">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+            </table>
+             <a asp-page="./Create">Add Book</a>
+</div>
